@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: build/api/Dockerfile
+    container_name: code-test.api
+    depends_on:
+      - database
+    networks:
+      backend: ~
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    
+  database:
+    image: postgres
+    container_name: code-test.postgres
+    env_file:
+      - .env
+    networks:
+      - adminer
+      - code-test-db
+    ports:
+      - 5433:${POSTGRES_PORT}
+    volumes:
+      - ~/docker-containers/code-test/postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: code-test.adminer
+    ports:
+      - 3308:8080
+    links:
+      - database
+    networks:
+      backend: ~
+
+  redis:
+    image: redis
+    container_name: code-test.redis
+    ports:
+      - 6379:6379
+    logging:
+      driver: none
+
+  redis-commander:
+    image: tenstartups/redis-commander
+    container_name: code-test.redis-commander
+    command: --redis-host redis-host
+    ports:
+      - 6380:8081
+    links:
+      - redis:redis-host
+    logging:
+      driver: none
+
+networks:
+  backend: ~

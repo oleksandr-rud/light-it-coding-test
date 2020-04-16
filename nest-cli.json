@@ -1,0 +1,18 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "projects": {
+    "cars": {
+      "type": "library",
+      "root": "libs/cars",
+      "entryFile": "index",
+      "sourceRoot": "libs/cars/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/cars/tsconfig.lib.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": true
+  }
+}
