@@ -1,11 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsDate, IsNotEmpty, IsPhoneNumber } from "class-validator";
+import { IsInt, IsNotEmpty, IsPhoneNumber } from "class-validator";
 
-export class CreateManufacturerDto {
-    @ApiProperty({ example: 'Oleksandr' })
-    @IsNotEmpty()
-    name: string;
-    
+export class CreateManufacturerDto {    
     @ApiProperty({ example: '+380661741401' })
     @IsNotEmpty()
     @IsPhoneNumber('ZZ')

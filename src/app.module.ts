@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmOptionsService } from './typeorm-options/typeorm-options.service';
 import { CarsModule } from '@app/cars';
+import { CarsController } from './cars/cars.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { CarsModule } from '@app/cars';
     }),
     CarsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, CarsController],
   providers: [AppService, TypeOrmOptionsService],
 })
 export class AppModule {}
