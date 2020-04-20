@@ -1,8 +1,10 @@
+import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateCarDto } from './../../libs/cars/src/dtos/create-car.dto';
 import { CarEntity } from './../../libs/cars/src/entities/car.entity';
-import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put } from '@nestjs/common';
 import { CarsService } from '@app/cars';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+
 
 @ApiTags('Cars')
 @Controller('cars')
@@ -25,17 +27,17 @@ export class CarsController {
     @Get('')
     @ApiResponse({
         status: 200,
-        description: 'Return list of all cars',
+        description: 'Return list of all cars.',
         type: [CarEntity],
     })
-    list(): Promise<CarEntity[] | void> {
+    findMany(): Promise<CarEntity[] | void> {
         return this.carsService.findMany();
     }
 
     @Get(':carId')
     @ApiResponse({
         status: 200,
-        description: 'Car info by ID.',
+        description: 'Return car data by ID.',
         type: CarEntity,
     })
     findOne(@Param('carId', new ParseIntPipe()) carId: number): Promise<CarEntity | void> {
@@ -43,12 +45,24 @@ export class CarsController {
     }
 
     @Put(':carId')
+    @HttpCode(202)
     @ApiResponse({
         status: 202,
-        description: 'Car info by ID.',
+        description: 'Update car data by ID.',
         type: CarEntity,
     })
-    update(@Param('carId', new ParseIntPipe()) carId: number, @Body() payload: CreateCarDto): Promise<CarEntity | void> {
+    update(@Param('carId', new ParseIntPipe()) carId: number, @Body() payload: CreateCarDto): Promise<CarEntity | UpdateResult> {
         return this.carsService.update(carId, payload);
+    }
+
+    @Delete(':carId')
+    @HttpCode(204)
+    @ApiResponse({
+        status: 204,
+        description: 'Delete car data by ID.',
+        type: CarEntity,
+    })
+    delete(@Param('carId', new ParseIntPipe()) carId: number): Promise<CarEntity | DeleteResult> {
+        return this.carsService.delete(carId);
     }
 }
