@@ -7,7 +7,7 @@ export class CarEntity {
     @PrimaryGeneratedColumn('increment')
     id: string;
 
-    @OneToOne(() => ManufacturerEntity, { cascade: true })
+    @OneToOne(() => ManufacturerEntity)
     manufacturer: ManufacturerEntity;
     
     @Column({ type: 'int' })

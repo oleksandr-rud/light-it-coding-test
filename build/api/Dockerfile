@@ -1,4 +1,4 @@
-FROM node:12.16.2-alpine3.9
+FROM node:12.16.2
 
 RUN rm /usr/local/bin/yarn
 

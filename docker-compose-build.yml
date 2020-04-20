@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: build/api/Dockerfile
     container_name: code-test.api
+    env_file:
+      - .env
     depends_on:
       - database
     networks:
@@ -19,10 +21,9 @@ services:
     env_file:
       - .env
     networks:
-      - adminer
-      - code-test-db
+      backend: ~
     ports:
-      - 5433:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:5432
     volumes:
       - ~/docker-containers/code-test/postgres-data:/var/lib/postgresql/data
 
@@ -35,25 +36,6 @@ services:
       - database
     networks:
       backend: ~
-
-  redis:
-    image: redis
-    container_name: code-test.redis
-    ports:
-      - 6379:6379
-    logging:
-      driver: none
-
-  redis-commander:
-    image: tenstartups/redis-commander
-    container_name: code-test.redis-commander
-    command: --redis-host redis-host
-    ports:
-      - 6380:8081
-    links:
-      - redis:redis-host
-    logging:
-      driver: none
 
 networks:
   backend: ~

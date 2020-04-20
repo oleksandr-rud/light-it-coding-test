@@ -20,7 +20,7 @@ up:
 down:
 	docker stop $(shell docker ps -a -q)	
 
-build:
+build-containers:
 	docker-compose -f docker-compose-build.yml build
 
 # Refresh current DB
