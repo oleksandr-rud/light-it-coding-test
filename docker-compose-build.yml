@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: build/api/Dockerfile
-    container_name: code-test.api
+    container_name: coding-test.api
     env_file:
       - .env
     depends_on:
@@ -14,10 +14,10 @@ services:
       backend: ~
     ports:
       - "${APP_PORT}:${APP_PORT}"
-    
+
   database:
     image: postgres
-    container_name: code-test.postgres
+    container_name: coding-test.postgres
     env_file:
       - .env
     networks:
@@ -25,11 +25,11 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
-      - ~/docker-containers/code-test/postgres-data:/var/lib/postgresql/data
+      - ~/docker-containers/coding-test/postgres-data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
-    container_name: code-test.adminer
+    container_name: coding-test.adminer
     ports:
       - 3308:8080
     links:
