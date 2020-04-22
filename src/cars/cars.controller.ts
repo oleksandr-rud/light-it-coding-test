@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateCarDto } from './../../libs/cars/src/dtos/create-car.dto';
@@ -64,5 +64,20 @@ export class CarsController {
     })
     delete(@Param('carId', new ParseIntPipe()) carId: number): Promise<CarEntity | DeleteResult> {
         return this.carsService.delete(carId);
+    }
+
+    @Post('trigger-events')
+    @HttpCode(200)
+    @ApiResponse({
+        status: 200,
+        description: 'Delete outdated owners and set discount to cars.',
+    })
+    async triggerEvents(): Promise<void> {
+        try {
+            await this.carsService.setDiscount(20);
+            await this.carsService.deleteOutdatedOwners();
+        } catch (e) {
+            throw new HttpException(e, HttpStatus.BAD_REQUEST);
+        }
     }
 }
