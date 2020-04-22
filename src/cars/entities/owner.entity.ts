@@ -4,7 +4,7 @@ import { CarEntity } from './car.entity';
 @Entity({ name: 'owners' })
 export class OwnerEntity {
     @PrimaryGeneratedColumn('increment')
-    id: string;
+    id: number;
 
     @Column({ type: 'varchar' })
     name: string;

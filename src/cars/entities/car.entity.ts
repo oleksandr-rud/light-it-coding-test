@@ -5,7 +5,7 @@ import { ManufacturerEntity } from './manufacturer.entity';
 @Entity({ name: 'cars' })
 export class CarEntity {
     @PrimaryGeneratedColumn('increment')
-    id: string;
+    id: number;
 
     @ManyToOne(() => ManufacturerEntity, {
         cascade: true, nullable: true
