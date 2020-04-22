@@ -6,31 +6,29 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+  app.setGlobalPrefix('api');
 
   const swaggerOptions = new DocumentBuilder()
-  .setTitle('Test API')
-  .setDescription('The code test API documentation.')
-  .setVersion(process.env.API_VERSION || '0.0.0')
-  .addBearerAuth()
-  .build();
-  const SwagerDocument = SwaggerModule.createDocument(app, swaggerOptions);
-  
-  SwaggerModule.setup('api', app, SwagerDocument);
+    .setTitle('Test API')
+    .setDescription('The code test API documentation.')
+    .setVersion(process.env.API_VERSION || '0.0.0')
+    .addBearerAuth()
+    .build();
+  const SwaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
+  SwaggerModule.setup('docs', app, SwaggerDocument);
 
-  app.setGlobalPrefix('api');
-  
   app.useGlobalPipes(
     new ValidationPipe({
         transform: true,
     }),
-);
-  
+  );
+
   try {
     await app.listenAsync(process.env.APP_PORT, process.env.APP_HOST);
 } catch (e) {
     Logger.error(e.message);
 } finally {
-    Logger.debug(`Test API is started http://${process.env.HOST}:${process.env.PORT}/api`);
+    Logger.debug(`Test API is started http://${process.env.APP_HOST}:${process.env.APP_PORT}/api`);
 }
 }
 bootstrap();

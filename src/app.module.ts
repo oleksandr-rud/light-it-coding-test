@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmOptionsService } from './typeorm-options/typeorm-options.service';
-import { CarsModule } from '@app/cars';
 import { CarsController } from './cars/cars.controller';
+import { CarsModule } from './cars/cars.module';
 
 @Module({
   imports: [
@@ -17,7 +15,7 @@ import { CarsController } from './cars/cars.controller';
     }),
     CarsModule,
   ],
-  controllers: [AppController, CarsController],
-  providers: [AppService, TypeOrmOptionsService],
+  controllers: [CarsController],
+  providers: [TypeOrmOptionsService],
 })
 export class AppModule {}

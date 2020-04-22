@@ -12,14 +12,7 @@
     "incremental": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "importHelpers": true,
-    "paths": {
-      "@app/cars": [
-        "libs/cars/src"
-      ],
-      "@app/cars/*": [
-        "libs/cars/src/*"
-      ]
+    "importHelpers": true
     }
   },
   "exclude": [

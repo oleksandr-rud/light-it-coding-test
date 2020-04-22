@@ -1,6 +1,6 @@
 entity: ManufacturerEntity
 items:
-  manufacturer{1..10}:
+  manufacturer{1..5}:
     name: '{{company.companyName}}'
     phone: '{{phone.phoneNumber}}'
     siret: '{{random.number(9999999)}}'

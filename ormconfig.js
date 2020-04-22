@@ -10,10 +10,10 @@ module.exports = {
     'synchronize': false,
     'dropSchema': false,
     'logging': false,
-    'entities': ['src/**/**.entity{.ts,.js}', 'libs/**/**.entity{.ts,.js}'],
+    'entities': 'src/**/**.entity{.ts,.js}',
     'migrations': ['migrations/**/*.ts'],
     'cli': {
-        'entitiesDir': ['src', 'libs/**/entities'],
+        'entitiesDir': 'src/**/entities',
         'migrationsDir': 'migrations',
     },
 };

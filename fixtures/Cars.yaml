@@ -1,6 +1,6 @@
 entity: CarEntity
 items:
   car{1..10}:
-    manufacturer: '@manufacturer{1..10}'
+    manufacturer: '@manufacturer{1..5}'
     price: '{{random.number(600000)}}'
     firstRegistrationDate: "{{date.recent}}"

@@ -17,8 +17,8 @@ export class CarsService {
         private readonly ownersRepository: Repository<OwnerEntity>,
     ) {}
 
-    create(payload: CreateCarDto): Promise<CarEntity> {
-        return this.carsRepository.save(payload);
+    create({ manufacturer, ...payload }: CreateCarDto): Promise<CarEntity> {
+        return this.carsRepository.save({ manufacturer: manufacturer as unknown as Partial<ManufacturerEntity>,...payload });
     }
 
     findById(carId: number): Promise<CarEntity> {
@@ -29,14 +29,14 @@ export class CarsService {
         return this.carsRepository.find();
     }
 
-    update(carId: number, payload: CreateCarDto): Promise<UpdateResult> {
-        return this.carsRepository.update(carId, payload);
+    update(carId: number, { manufacturer, ...payload }: CreateCarDto): Promise<UpdateResult> {
+        return this.carsRepository.update(carId, { manufacturer: manufacturer as unknown as Partial<ManufacturerEntity>,...payload });
     }
 
     delete(carId: number): Promise<DeleteResult> {
         return this.carsRepository.delete(carId);
     }
-    
+
     deleteOutdatedOwners(): Promise<DeleteResult> {
         const now = new Date();
         const fromDate = new Date();
@@ -47,13 +47,12 @@ export class CarsService {
         return this.ownersRepository
             .createQueryBuilder('owners')
             .delete()
-            .where('owners.purchaseDate <= :fromDate')
+            .where('purchaseDate <= :fromDate')
             .setParameters({ fromDate })
             .execute()
     }
 
-    setDiscount(percents: number): Promise<UpdateResult> {
-        const discount = percents / 100;
+    setDiscount(discount: number): Promise<UpdateResult> {
         const now = new Date();
         const fromDate = new Date();
         const toDate = new Date();
@@ -64,8 +63,8 @@ export class CarsService {
             .createQueryBuilder('cars')
             .update()
             .set({ price: () => 'price - price * :discount / 100' })
-            .where('cars.firstRegistrationDate >= :fromDate')
-            .andWhere('cars.firstRegistrationDate <= :toDate')
+            .where('firstRegistrationDate >= :fromDate')
+            .andWhere('firstRegistrationDate <= :toDate')
             .setParameters({ discount, fromDate, toDate })
             .execute()
     }

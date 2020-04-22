@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { CreateCarDto } from './../../libs/cars/src/dtos/create-car.dto';
-import { CarEntity } from './../../libs/cars/src/entities/car.entity';
-import { CarsService } from '@app/cars';
+import { CarsService } from './cars.service';
+import { CarEntity } from './entities/car.entity';
+import { CreateCarDto } from './dtos/create-car.dto';
 
 
 @ApiTags('Cars')
@@ -28,7 +28,8 @@ export class CarsController {
     @ApiResponse({
         status: 200,
         description: 'Return list of all cars.',
-        type: [CarEntity],
+        isArray: true,
+        type: CarEntity,
     })
     findMany(): Promise<CarEntity[] | void> {
         return this.carsService.findMany();
@@ -72,10 +73,11 @@ export class CarsController {
         status: 200,
         description: 'Delete outdated owners and set discount to cars.',
     })
-    async triggerEvents(): Promise<void> {
+    async triggerEvents(): Promise<object> {
         try {
             await this.carsService.setDiscount(20);
             await this.carsService.deleteOutdatedOwners();
+            return { status: 'ok' };
         } catch (e) {
             throw new HttpException(e, HttpStatus.BAD_REQUEST);
         }
