@@ -22,11 +22,11 @@ export class CarsService {
     }
 
     findById(carId: number): Promise<CarEntity> {
-        return this.carsRepository.findOne(carId);
+        return this.carsRepository.findOne(carId, { relations: ['manufacturer', 'owners'] });
     }
 
     findMany(): Promise<CarEntity[]> {
-        return this.carsRepository.find();
+        return this.carsRepository.find({ relations: ['manufacturer', 'owners'] });
     }
 
     update(carId: number, { manufacturer, ...payload }: CreateCarDto): Promise<UpdateResult> {
