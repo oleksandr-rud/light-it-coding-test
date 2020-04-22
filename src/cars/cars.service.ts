@@ -17,8 +17,8 @@ export class CarsService {
         private readonly ownersRepository: Repository<OwnerEntity>,
     ) {}
 
-    create({ manufacturer, ...payload }: CreateCarDto): Promise<CarEntity> {
-        return this.carsRepository.save({ manufacturer: manufacturer as unknown as Partial<ManufacturerEntity>,...payload });
+    create(payload: CreateCarDto): Promise<CarEntity> {
+        return this.carsRepository.save(payload);
     }
 
     findById(carId: number): Promise<CarEntity> {
@@ -29,8 +29,8 @@ export class CarsService {
         return this.carsRepository.find({ relations: ['manufacturer', 'owners'] });
     }
 
-    update(carId: number, { manufacturer, ...payload }: CreateCarDto): Promise<UpdateResult> {
-        return this.carsRepository.update(carId, { manufacturer: manufacturer as unknown as Partial<ManufacturerEntity>,...payload });
+    update(carId: number, payload: CreateCarDto): Promise<UpdateResult> {
+        return this.carsRepository.update(carId, payload);
     }
 
     delete(carId: number): Promise<DeleteResult> {

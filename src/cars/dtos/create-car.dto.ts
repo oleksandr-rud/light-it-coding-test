@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsDate, ValidateNested } from 'class-validator';
+import { IsInt, IsDate, ValidateNested, IsOptional } from 'class-validator';
 import { CreateManufacturerDto } from "./create-manufacturer.dto";
 import { Transform } from 'class-transformer';
 import { IdDto } from './id.dto';
@@ -17,4 +17,9 @@ export class CreateCarDto {
     @ApiProperty({ example: new Date() })
     @IsDate()
     firstRegistrationDate: Date;
+
+    @ApiProperty()
+    @IsOptional()
+    @ValidateNested({ each: true })
+    owners?: IdDto[];
 }
