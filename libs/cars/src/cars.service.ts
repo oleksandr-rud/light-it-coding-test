@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult, UpdateResult } from 'typeorm';
+import { Repository, DeleteResult, UpdateResult, Between } from 'typeorm';
 import { CreateCarDto } from './dtos/create-car.dto';
 import { OwnerEntity } from './entities/owner.entity';
 import { ManufacturerEntity } from './entities/manufacturer.entity';
@@ -35,5 +35,38 @@ export class CarsService {
 
     delete(carId: number): Promise<DeleteResult> {
         return this.carsRepository.delete(carId);
+    }
+    
+    deleteOutdatedOwners(): Promise<DeleteResult> {
+        const now = new Date();
+        const fromDate = new Date();
+        const toDate = new Date();
+        fromDate.setMonth(now.getMonth() - 18);
+        toDate.setMonth(now.getMonth() - 12);
+
+        return this.ownersRepository
+            .createQueryBuilder('owners')
+            .delete()
+            .where('owners.purchaseDate <= :fromDate')
+            .setParameters({ fromDate })
+            .execute()
+    }
+
+    setDiscount(percents: number): Promise<UpdateResult> {
+        const discount = percents / 100;
+        const now = new Date();
+        const fromDate = new Date();
+        const toDate = new Date();
+        fromDate.setMonth(now.getMonth() - 18);
+        toDate.setMonth(now.getMonth() - 12);
+
+        return this.carsRepository
+            .createQueryBuilder('cars')
+            .update()
+            .set({ price: () => 'price - price * :discount / 100' })
+            .where('cars.firstRegistrationDate >= :fromDate')
+            .andWhere('cars.firstRegistrationDate <= :toDate')
+            .setParameters({ discount, fromDate, toDate })
+            .execute()
     }
 }
