@@ -5,24 +5,26 @@ import { ManufacturerEntity } from './manufacturer.entity';
 
 @Entity({ name: 'cars' })
 export class CarEntity implements EntityWithId {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @ManyToOne(() => ManufacturerEntity, {
-        cascade: true, nullable: true
-    })
-    @JoinColumn()
-    manufacturer: ManufacturerEntity;
+  @ManyToOne(() => ManufacturerEntity, {
+    cascade: true,
+    nullable: true,
+  })
+  @JoinColumn()
+  manufacturer: ManufacturerEntity;
 
-    @Column({ type: 'int' })
-    price: number;
+  @Column({ type: 'int' })
+  price: number;
 
-    @ManyToMany(() => OwnerEntity, {
-        cascade: true, nullable: true
-    })
-    @JoinTable()
-    owners: OwnerEntity[];
+  @ManyToMany(() => OwnerEntity, {
+    cascade: true,
+    nullable: true,
+  })
+  @JoinTable()
+  owners: OwnerEntity[];
 
-    @Column({ type: 'timestamp' })
-    firstRegistrationDate: Date;
+  @Column({ type: 'timestamp' })
+  firstRegistrationDate: Date;
 }

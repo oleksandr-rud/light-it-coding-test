@@ -6,14 +6,8 @@ import { ManufacturerEntity } from './entities/manufacturer.entity';
 import { OwnerEntity } from './entities/owner.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      CarEntity,
-      ManufacturerEntity,
-      OwnerEntity
-    ])
-  ],
+  imports: [TypeOrmModule.forFeature([CarEntity, ManufacturerEntity, OwnerEntity])],
   providers: [CarsService],
-  exports: [CarsService]
+  exports: [CarsService],
 })
 export class CarsModule {}

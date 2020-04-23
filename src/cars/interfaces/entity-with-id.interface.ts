@@ -1,3 +1,3 @@
 export interface EntityWithId {
-    id: number;
+  id: number;
 }

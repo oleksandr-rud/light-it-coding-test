@@ -1,14 +1,14 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsNotEmpty, IsPhoneNumber } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 
-export class CreateManufacturerDto {    
-    @ApiProperty({ example: '+380661741401' })
-    @IsNotEmpty()
-    @IsPhoneNumber('ZZ')
-    phone: string;
+export class CreateManufacturerDto {
+  @ApiProperty({ example: '+380661741401' })
+  @IsNotEmpty()
+  @IsPhoneNumber('ZZ')
+  phone: string;
 
-    @ApiProperty({ example: 112358132134 })
-    @IsNotEmpty()
-    @IsInt()
-    siret: number;
+  @ApiProperty({ example: 112358132134 })
+  @IsNotEmpty()
+  @IsInt()
+  siret: number;
 }

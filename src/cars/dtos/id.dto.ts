@@ -4,14 +4,14 @@ import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class IdDto implements EntityWithId {
-    @ApiProperty()
-    @Transform(id => Number(id))
-    @IsNotEmpty()
-    @IsNumber({
-        allowNaN: false,
-        allowInfinity: false,
-    })
-    @IsInt()
-    @Min(1)
-    id: number;
+  @ApiProperty()
+  @Transform(id => Number(id))
+  @IsNotEmpty()
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+  })
+  @IsInt()
+  @Min(1)
+  id: number;
 }

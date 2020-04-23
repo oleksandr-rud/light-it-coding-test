@@ -19,17 +19,17 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-        transform: true,
+      transform: true,
     }),
   );
 
   try {
     await app.listenAsync(process.env.APP_PORT, process.env.APP_HOST);
-} catch (e) {
+  } catch (e) {
     Logger.error(e.message);
-} finally {
+  } finally {
     Logger.debug(`Test API started on http://${process.env.APP_HOST}:${process.env.APP_PORT}/api`);
     Logger.debug(`Test API documentation available on http://${process.env.APP_HOST}:${process.env.APP_PORT}/docs`);
-}
+  }
 }
 bootstrap();
