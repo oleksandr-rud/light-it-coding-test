@@ -28,20 +28,14 @@
 
 [Ligth IT Coding test](https://github.com/oleksandr-rud/light-it-coding-test).
 
-## Installation
-
-```bash
-$ make up
-$ yarn install
-```
-
 ## Setup environment
 
 ```bash
+$ yarn install
 $ make up
 ```
 
-## Reload migration to database, and load fixtures data
+## Reload migration, load fixtures data
 
 ```bash
 $ yarn fixtures:load
