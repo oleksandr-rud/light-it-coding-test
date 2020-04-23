@@ -35,7 +35,7 @@ $ yarn install
 $ make up
 ```
 
-## Reload migration, load fixtures data
+## Run migration, load fixtures data
 
 ```bash
 $ yarn fixtures:load
