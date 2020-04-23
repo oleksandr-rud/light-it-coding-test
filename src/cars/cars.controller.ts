@@ -1,9 +1,10 @@
+import { UpdateCarDto } from './dtos/car/update-car.dto';
 import { Controller, Get, Post, Body, HttpCode, Param, ParseIntPipe, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CarsService } from './cars.service';
 import { CarEntity } from './entities/car.entity';
-import { CreateCarDto } from './dtos/create-car.dto';
+import { CreateCarDto } from './dtos/car/create-car.dto';
 
 
 @ApiTags('Cars')
@@ -52,7 +53,7 @@ export class CarsController {
         description: 'Update car data by ID.',
         type: CarEntity,
     })
-    update(@Param('carId', new ParseIntPipe()) carId: number, @Body() payload: CreateCarDto): Promise<CarEntity | UpdateResult> {
+    update(@Param('carId', new ParseIntPipe()) carId: number, @Body() payload: UpdateCarDto): Promise<CarEntity | UpdateResult> {
         return this.carsService.update(carId, payload);
     }
 
@@ -73,12 +74,13 @@ export class CarsController {
         status: 200,
         description: 'Delete outdated owners and set discount to cars.',
     })
-    async triggerEvents(): Promise<object> {
+    async triggerEvents(): Promise<{ status: string }> {
         try {
             await this.carsService.setDiscount(20);
             await this.carsService.deleteOutdatedOwners();
             return { status: 'ok' };
         } catch (e) {
+            return { status: 'failed' };
             throw new HttpException(e, HttpStatus.BAD_REQUEST);
         }
     }

@@ -1,6 +1,5 @@
 entity: OwnerEntity
 items:
-  owners{1..10}_{1..100}:
+  owner{1..100}:
     name: '{{name.firstName}}'
-    car: '@car{1..10}'
     purchaseDate: "{{date.recent}}"

@@ -1,5 +1,5 @@
 import { EntityWithId } from './../interfaces/entity-with-id.interface';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { CarEntity } from './car.entity';
 
 @Entity({ name: 'owners' })
@@ -12,8 +12,4 @@ export class OwnerEntity implements EntityWithId {
 
     @Column({ type: 'timestamp' })
     purchaseDate: Date;
-
-    @ManyToOne(() => CarEntity, car => car.owners, { onDelete: 'CASCADE', nullable: true })
-    @JoinColumn()
-    car?: CarEntity;
 }

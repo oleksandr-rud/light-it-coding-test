@@ -1,5 +1,5 @@
 import { EntityWithId } from './../interfaces/entity-with-id.interface';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 import { OwnerEntity } from './owner.entity';
 import { ManufacturerEntity } from './manufacturer.entity';
 
@@ -17,9 +17,10 @@ export class CarEntity implements EntityWithId {
     @Column({ type: 'int' })
     price: number;
 
-    @OneToMany(() => OwnerEntity, owners => owners.car, {
+    @ManyToMany(() => OwnerEntity, {
         cascade: true, nullable: true
     })
+    @JoinTable()
     owners: OwnerEntity[];
 
     @Column({ type: 'timestamp' })

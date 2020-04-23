@@ -28,7 +28,8 @@ async function bootstrap() {
 } catch (e) {
     Logger.error(e.message);
 } finally {
-    Logger.debug(`Test API is started http://${process.env.APP_HOST}:${process.env.APP_PORT}/api`);
+    Logger.debug(`Test API started on http://${process.env.APP_HOST}:${process.env.APP_PORT}/api`);
+    Logger.debug(`Test API documentation available on http://${process.env.APP_HOST}:${process.env.APP_PORT}/docs`);
 }
 }
 bootstrap();

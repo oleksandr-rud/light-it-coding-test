@@ -1,7 +1,8 @@
+import { CreateCarDto } from './dtos/car/create-car.dto';
+import { UpdateCarDto } from './dtos/car/update-car.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult, UpdateResult, Between } from 'typeorm';
-import { CreateCarDto } from './dtos/create-car.dto';
+import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 import { OwnerEntity } from './entities/owner.entity';
 import { ManufacturerEntity } from './entities/manufacturer.entity';
 import { CarEntity } from './entities/car.entity';
@@ -29,8 +30,8 @@ export class CarsService {
         return this.carsRepository.find({ relations: ['manufacturer', 'owners'] });
     }
 
-    update(carId: number, payload: CreateCarDto): Promise<UpdateResult> {
-        return this.carsRepository.update(carId, payload);
+    update(carId: number, payload: UpdateCarDto): Promise<CarEntity> {
+        return this.carsRepository.save({ id:carId, ...payload });
     }
 
     delete(carId: number): Promise<DeleteResult> {

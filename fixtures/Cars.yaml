@@ -4,3 +4,6 @@ items:
     manufacturer: '@manufacturer{1..5}'
     price: '{{random.number(600000)}}'
     firstRegistrationDate: "{{date.recent}}"
+    owners: 
+      - '@owner{1..10}'
+      - '@owner{10..20}'
