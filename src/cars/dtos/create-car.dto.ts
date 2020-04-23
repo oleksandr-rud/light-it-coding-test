@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsInt, IsDate, ValidateNested, IsOptional } from 'class-validator';
-import { CreateManufacturerDto } from "./create-manufacturer.dto";
 import { Transform } from 'class-transformer';
 import { IdDto } from './id.dto';
 

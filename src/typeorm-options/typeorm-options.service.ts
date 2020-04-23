@@ -1,3 +1,6 @@
+import { OwnerEntity } from './../cars/entities/owner.entity';
+import { ManufacturerEntity } from './../cars/entities/manufacturer.entity';
+import { CarEntity } from './../cars/entities/car.entity';
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -15,10 +18,10 @@ export class TypeOrmOptionsService implements TypeOrmOptionsFactory {
             host: this.config.get('POSTGRES_HOST'),
             port: Number(this.config.get('POSTGRES_PORT')),
             database: this.config.get('POSTGRES_DB'),
-            synchronize: false,
+            synchronize: true,
             dropSchema: false,
             logging: this.config.get('TYPEORM_LOGGING') ?? false,
-            entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
+            entities: [CarEntity, ManufacturerEntity, OwnerEntity],
             keepConnectionAlive: true,
         };
     }

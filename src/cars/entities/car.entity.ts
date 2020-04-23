@@ -1,9 +1,10 @@
+import { EntityWithId } from './../interfaces/entity-with-id.interface';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { OwnerEntity } from './owner.entity';
 import { ManufacturerEntity } from './manufacturer.entity';
 
 @Entity({ name: 'cars' })
-export class CarEntity {
+export class CarEntity implements EntityWithId {
     @PrimaryGeneratedColumn('increment')
     id: number;
 

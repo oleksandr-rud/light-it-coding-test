@@ -13,7 +13,6 @@
     "strictNullChecks": false,
     "skipLibCheck": true,
     "importHelpers": true
-    }
   },
   "exclude": [
     "node_modules",

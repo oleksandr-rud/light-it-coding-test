@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { EntityWithId } from '../interfaces/entity-with-id.interface';
 
 @Entity({ name: 'manufacturers' })
-export class ManufacturerEntity {
+export class ManufacturerEntity implements EntityWithId {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
